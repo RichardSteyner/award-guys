@@ -1,0 +1,75 @@
+<apex:page standardController="Opportunity" extensions="VendorPOPDF">
+    <head>
+        <apex:includeScript value="{!$Resource.jQuery }"  />
+    </head>
+    <body>
+        <apex:form >
+            <apex:pageBlock title="VENDOR CAG ORDER DETAIL">
+                <apex:pageBlockSection >
+                    <apex:outputField value="{! Opportunity.Name }"/>
+                    <apex:outputField value="{! Opportunity.PO__c }"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <apex:outputPanel ><!---->
+                <apex:repeat value="{! mapOpportunity}" var="oppId">
+                    <apex:pageBlock title="CUSTOMER CAG ORDER">
+                        <apex:variable value="{! mapOpportunity[oppId]}" var="Opp"/>
+                        <apex:pageBlockSection >
+                            <apex:outputField value="{! Opp.Name }"/>
+                            <apex:outputField value="{! Opp.PO__c }"/>
+                            <!--<apex:inputCheckbox value="{! Opp.Include_in_PDF__c }" onclick="checkClick(this);" html-key-val="{!Opp.id}" />-->
+                        </apex:pageBlockSection>
+                        
+                        <apex:pageBlockTable title="Items" value="{!mapOppLineItem[oppId]}" var="item" id="orders">
+                            <apex:column value="{!item.Product2.name}"/>
+                            <apex:column headerValue="Include in PDF">
+                                <apex:inputCheckbox value="{!item.For_PDF__c}"  onclick="checkClickProduct(this);" html-key-val="{!item.id}"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                        
+                        <apex:pageBlockTable title="Files" value="{!mapContentVersion[oppId]}" var="item">
+                            
+                            <apex:column value="{!item.Title}"/>
+                            <apex:column headerValue="Include in PDF">
+                                <apex:inputCheckbox value="{!item.Proof__c}" onclick="checkClickFile(this);" html-key-val="{!item.id}"/>
+                            </apex:column>
+                            
+                        </apex:pageBlockTable>
+                        
+                    </apex:pageBlock>
+                </apex:repeat>
+                <apex:pageBlock >
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton id="SaveRecords"  value="Save" action="{!saveRecords}" /><!--styleClass="slds-vf-button slds-vf-button_brand" -->
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            
+            <!-- Action Functions-->
+            <!--<apex:actionFunction action="{!checkClickController}" name="checkClickJs" reRender="orders">
+<apex:param assignTo="{!actualKeyValue}" value="" name="actualKeyValue" />
+</apex:actionFunction>-->
+            <apex:actionFunction action="{!checkClickProductController}" name="checkClickProductJs" reRender="products">
+                <apex:param assignTo="{!actualKeyValueProduct}" value="" name="actualKeyValueProduct" />
+            </apex:actionFunction>
+            <apex:actionFunction action="{!checkClickFileController}" name="checkClickFileJs" reRender="files">
+                <apex:param assignTo="{!actualKeyValueFile}" value="" name="actualKeyValueFile" />
+            </apex:actionFunction>
+        </apex:form>
+        <script>
+        /*function checkClick(val){
+            var keyValue = $(val).attr('key-val');
+            checkClickJs(keyValue);
+        }*/
+        function checkClickProduct(val){
+            var keyValue = $(val).attr('key-val');
+            checkClickProductJs(keyValue);
+        }
+        function checkClickFile(val){
+            var keyValue = $(val).attr('key-val');
+            checkClickFileJs(keyValue);
+        }
+        </script>
+    </body> 
+    
+</apex:page>

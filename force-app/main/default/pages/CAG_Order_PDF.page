@@ -1,0 +1,482 @@
+<apex:page standardController="Opportunity" extensions="OLIController"  renderAs="pdf" applyBodyTag="false">
+    <head>
+        <style> 
+            @page:first {
+            margin-top: 0.5cm;
+            margin-bottom: 0.5cm;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            size: 220mm 230mm; /*A4 landscape;*/ 
+            /* page-break-after:always; */
+            /* page-break-after:auto; */
+            /*border :1px solid black;*/
+            /*border-bottom :1px solid black;*/
+            
+            }
+            @page {
+            size:A4 portrait; /*landscape;*/
+            border: 0px solid black;    
+            }
+            
+            div.mybox { 
+            width: 488px; 
+            height:40px; 
+            padding: 10px; 
+            background-color: 
+            lightblue; 
+            border:0.5px solid black; 
+            margin: 0; }
+            
+            div.mybox1 { 
+            width: 59px; 
+            height: 1px; 
+            padding: 7px; 
+            background-color: 
+            lightblue; 
+            border:0.5px solid black; 
+            margin: 0; }
+            
+            div.mybox2 { 
+            width: 70px; 
+            height: 1px; 
+            padding: 7px; 
+            background-color: 
+            lightblue; 
+            border:0.5px solid black; 
+            margin: 0; }
+            
+            div.mybox3 { 
+            width: 120px; 
+            height: 1px; 
+            padding: 7px; 
+            background-color: 
+            lightblue; 
+            border:0.5px solid black; 
+            margin: 0; }
+            
+            div.mybox4 { 
+            width: 210px; 
+            height:30px; 
+            padding: 10px; 
+            background-color: 
+            lightblue; 
+            border:0.5px solid black; 
+            margin: 0; }
+            
+            body { font-family: 'Arial Unicode MS'; }
+            .companyName { font: bold 15px; } 
+            span.cls_004{font-family:Tahoma,serif;font-size:14.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+            div.cls_004{font-family:Tahoma,serif;font-size:12.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+            span.cls_005{font-family:Tahoma,serif;font-size:14.0px;color:rgb(255,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+            div.cls_005{font-family:Tahoma,serif;font-size:10.0px;color:rgb(255,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+            span.cls_002{font-family:Tahoma,serif;font-size:12.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+            div.cls_002{font-family:Tahoma,serif;font-size:8.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+            span.cls_003{font-family:Tahoma,serif;font-size:12.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+            .cls_003{font-family:Tahoma,serif;font-size:12.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+            
+            div.cls_003{font-family:Tahoma,serif;font-size:8.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+            
+            table {
+            border-collapse: collapse;
+            }
+            
+            td, th {
+            border: 3px solid black;
+            padding: 0.5rem;
+            text-align: center;
+            }
+            
+            .colstyle {border: 3px solid white}
+            
+            
+            
+            
+        </style>
+    </head>
+    <body>
+        <center>
+            
+            
+            <apex:panelGrid columnClasses="colstyle"  >
+                <div style="position:absolute;left:80.37px;top:22.61px" class="cls_004"><span class="cls_004">508-695-8133</span></div>
+                <div style="position:absolute;left:175.00px;top:22.61px" class="cls_004"><span class="cls_004">-</span></div>
+                <div style="position:absolute;left:190.60px;top:22.61px" class="cls_004"><span class="cls_004">&nbsp;508-699-6654 FAX</span></div>
+                <div style="position:absolute;left:320.03px;top:22.61px" class="cls_004">
+                    <span class="cls_004">
+                        <apex:outputText value="-   AWARD-GUYS.COM ORDER FORM" rendered="{!if(opportunity.Packing_Slip__c,false,true)}" style="position:absolute;left:320.03px;top:22.61px" styleClass="cls_004"/>
+                            <!---&nbsp;&nbsp;&nbsp;AWARD-GUYS.COM ORDER FORM-->
+                    </span>
+                    <span class="cls_004">
+                        <apex:outputText value="-   AWARD-GUYS.COM PACKING SLIP" rendered="{!if(opportunity.Packing_Slip__c,true,false)}" style="position:absolute;left:320.03px;top:22.61px" styleClass="cls_004"/>
+                            <!---&nbsp;&nbsp;&nbsp;AWARD-GUYS.COM PACKING SLIP-->
+                    </span>
+                </div>
+                
+                <div style="position:absolute;left:607.88px;top:23.48px" class="cls_005"><span class="cls_005">No. 14</span></div>
+                
+                <div style="position:absolute;left:25.78px;top:50.42px" class="cls_002"><span class="cls_002">Order Date</span> </div>
+                <div style="position:absolute;left:16.78px;top:65.36px" class="mybox1" type="text"><span class="cls_003">    
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:25.78px;top:65.36px;" styleClass="cls_003"> 
+                        <apex:param value="{!Opportunity.Order_Date__c}" /> </apex:outputText>
+                    </span>
+                </div>
+                <div style="position:absolute;left:110.52px;top:50.42px" class="cls_002"><span class="cls_002">Date Req </span> </div>
+                <div style="position:absolute;left:101.42px;top:65.36px" class="mybox1" type="text"><span class="cls_003">    
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:110.42px;top:65.36px" styleClass="cls_003"> 
+                        <apex:param value="{!Opportunity.Date_Required__c}" /> </apex:outputText> 
+                    </span>
+                </div>
+                
+                <div style="position:absolute;left:193.96px;top:50.42px" class="cls_002"><span class="cls_002">Event Date</span> </div>
+                <div style="position:absolute;left:184.42px;top:65.36px" class="mybox1" type="text"><span class="cls_003">    
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:193.96px;top:65.36px" styleClass="cls_003"> 
+                        <apex:param value="{!Opportunity.Event_Date__c}" /> </apex:outputText> 
+                    </span>
+                </div>
+                <div style="position:absolute;left:292.75px;top:50.42px" class="cls_002"><span class="cls_002">PO to Follow
+                    <apex:outputText rendered="{!if(opportunity.PO_to_Follow__c,false,true)}" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:268.74px;top:49.42px"/>  </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.PO_to_Follow__c,true,false)}" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:268.74px;top:49.42px"/>   </apex:outputText>
+                    </span> 
+                </div>
+                <div style="position:absolute;left:272.75px;top:65.36px" class="mybox2" type="text"><span class="cls_003">    
+                    <apex:outputText value="PO#{! Opportunity.PO__c}" style="position:absolute;left:273.74px;top:65.36px" styleClass="cls_003"/>
+                    </span>
+                </div>
+                <div style="position:absolute;left:395.40px;top:50.42px" class="cls_002"><span class="cls_002">Rep Name
+                    <apex:outputText value="{! Opportunity.Sales_Rep__c}" style="position:absolute;left:395.40px;top:65.36px" styleClass="cls_003"/>
+                    </span></div>
+                <div style="position:absolute;left:510.81px;top:50.42px" class="cls_002"><span class="cls_002">Comments</span> </div>
+                <div style="position:absolute;left:471.75px;top:65.36px" class="mybox3" type="text"><span class="cls_003">    
+                    <apex:outputText value="{! relatedAccount.Comments__c}" style="position:absolute;left:471.81px;right:182.81px;top:65.36px" styleClass="cls_003"/>
+                    </span></div>
+                <div style="position:absolute;left:610.72px;top:50.42px" class="cls_002"><span class="cls_002">Rush Charge
+                    <apex:outputText rendered="{!if(opportunity.Rush__c,false,true)}"  style="position:absolute;left:610.72px;top:65.36px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:635.72px;top:65.36px"/>  </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.Rush__c,true,false)}"  style="position:absolute;left:610.72px;top:65.36px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:635.72px;top:65.36px"/>   </apex:outputText>
+                    </span>
+                </div>
+                <div style="position:absolute;left:685.72px;top:50.42px" class="cls_002"><span class="cls_002">SHIP WT./PRICE</span> </div>
+                <div style="position:absolute;left:685.72px;top:65.36px" class="mybox2" type="text"><span class="cls_003"> 
+                    <apex:outputText value="{! Opportunity.SHIP_WT_PRICE__c	}" style="position:absolute;left:685.72px;top:65.36px" styleClass="cls_003"/>
+                    </span></div>
+                
+                <div style="position:absolute;left:23.31px;top:85.28px" class="cls_002"><span class="cls_002">APPROVAL SENT</span><span class="cls_003"> 
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:127.31px;top:85.28px" styleClass="cls_003">
+                        <apex:param value="{!Opportunity.Date_Aproval_Sent__c}" /> </apex:outputText>
+                    </span>
+                </div>   
+                <div style="position:absolute;left:196.19px;top:85.28px" class="cls_002"><span class="cls_002">Atmpt 1:</span><span class="cls_003"> 
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:243.19px;top:85.28px" styleClass="cls_003">
+                        <apex:param value="{!Opportunity.Approval_Attemp_1__c}" /> </apex:outputText>
+                    </span></div>
+                <div style="position:absolute;left:320.26px;top:85.28px" class="cls_002"><span class="cls_002">Atmpt 2:</span><span class="cls_003">
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:368.26px;top:85.28px" styleClass="cls_003">
+                        <apex:param value="{!Opportunity.Approval_Attemp_2__c}" /> </apex:outputText>
+                    </span></div>
+                <div style="position:absolute;left:440.35px;top:85.28px" class="cls_002"><span class="cls_002">Atmpt 3:</span><span class="cls_003"> 
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:487.35px;top:85.28px" styleClass="cls_003">
+                        <apex:param value="{!Opportunity.Approval_Attemp_3__c}" /> </apex:outputText>
+                    </span></div>
+                <div style="position:absolute;left:630.99px;top:85.28px" class="cls_002"><span class="cls_002">APPROVED</span></div>
+                <div style="position:absolute;left:630.00px;top:85.28px" class="cls_003"><span class="cls_003">
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="position:absolute;left:705.00px;top:85.28px" styleClass="cls_003">
+                        <apex:param value="{!Opportunity.Date_Approved__c}" /> </apex:outputText>
+                    </span></div>
+                <div style="position:absolute;left:26.72px;top:105.22px" class="cls_002"><span class="cls_002">Bill To:</span><span class="cls_003">   
+                    <apex:outputText value="{! Opportunity.Account.Name}" style="position:absolute;left:68.74px;top:105.22px" styleClass="cls_003"/>
+                    
+                    </span></div>
+                <div style="position:absolute;left:280.79px;top:105.22px" class="cls_002"><span class="cls_002">Approve With Changes
+                    <apex:outputText rendered="{!if(opportunity.Approved_With_Changes__c,false,true)}"  style="position:absolute;left:255.79px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:255.79px;top:105.22px"/>   </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.Approved_With_Changes__c,true,false)}"  style="position:absolute;left:left:255.79px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:255.79px;top:105.22px"/>  </apex:outputText>
+                    </span></div>
+                <div style="position:absolute;left:475.88px;top:105.22px" class="cls_002"><span class="cls_002">Ship To :
+                    <apex:outputText rendered="{!if(opportunity.Ship__c,false,true)}"  style="position:absolute;left:450.88px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:450.88px;top:105.22px"/>  </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.Ship__c,true,false)}"  style="position:absolute;left:450.88px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:450.88px;top:105.22px"/>   </apex:outputText>
+                    <apex:outputText value="{! Opportunity.Ship_To__c}" style="position:absolute;left:525.88px;top:105.22px" styleClass="cls_003"/>
+                    </span>
+                </div>
+                <div style="position:absolute;left:660.99px;top:105.22px" class="cls_002"><span class="cls_002">P/U
+                    <apex:outputText rendered="{!if(opportunity.P_U__c,false,true)}"  style="position:absolute;left:635.88px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:635.88px;top:105.22px"/>   </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.P_U__c,true,false)}"  style="position:absolute;left:635.88px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:635.88px;top:105.22px"/>   </apex:outputText>
+                    </span></div> 
+                <div style="position:absolute;left:720.03px;top:105.22px" class="cls_002"><span class="cls_002">H/D
+                    <apex:outputText rendered="{!if(opportunity.H_D__c,false,true)}"  style="position:absolute;left:695.03px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:695.03px;top:105.22px"/> </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.H_D__c,true,false)}"  style="position:absolute;left:695.03px;top:105.22px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:695.03px;top:105.22px"/>  </apex:outputText>
+                    </span></div>
+                
+                <div style="position:absolute;left:26.62px;top:125.15px " class="cls_003"><span class="cls_003"></span> </div>
+                <div style="position:absolute;left:25.62px;top:125.15px" class="mybox4" type="text"><span class="cls_003">
+                    <apex:outputText value="{! Opportunity.Billing_Street__c}" style="position:absolute;left:26.62px;top:125.15px" styleClass="cls_003"/>
+                    <apex:outputText value="{! Opportunity.Billing_City__c}" style="position:absolute;left:26.62px;top:135.81px" styleClass="cls_003"/>
+                    <apex:outputText value=",{! Opportunity.Billing_State_Province__c}" style="position:absolute;left:76.62px;top:135.81px" styleClass="cls_003"/>
+                    <apex:outputText value="{! Opportunity.Billing_Zip_Postal_Code__c}" style="position:absolute;left:96.62px;top:135.81px" styleClass="cls_003"/>
+                    </span></div>
+                <div style="position:absolute;left:527.91px;top:125.15px" class="cls_003"><span class="cls_003"> </span> </div>
+                <div style="position:absolute;left:526.91px;top:125.15px" class="mybox4" type="text"><span class="cls_003">
+                    <apex:outputText value="{! Opportunity.Billing_Street__c}" style="position:absolute;left:527.91px;top:125.15px" styleClass="cls_003"/>
+                    <apex:outputText value="{! Opportunity.Billing_City__c}" style="position:absolute;left:527.91px;top:135.81px" styleClass="cls_003"/>
+                    <apex:outputText value=",{! Opportunity.Billing_State_Province__c}" style="position:absolute;left:577.91px;top:135.81px" styleClass="cls_003"/>
+                    <apex:outputText value="{! Opportunity.Billing_Zip_Postal_Code__c}" style="position:absolute;left:597.91px;top:135.81px" styleClass="cls_003"/>
+                    </span></div>
+                
+                
+                
+                
+                <div style="position:absolute;left:42.54px;top:180.96px" class="cls_002"><span class="cls_002">Contact Name:
+                    </span><span class="cls_003">  
+                    <apex:outputText value="{! Opportunity.Contact__r.Name}" style="position:absolute;left:122.54px;top:180.96px" styleClass="cls_003"/></span></div>
+                <div style="position:absolute;left:304.01px;top:180.96px" class="cls_002"><span class="cls_002">Contact Email:</span><span class="cls_003">  
+                    <apex:outputText value="{! Opportunity.Contact__r.Email}" style="position:absolute;left:385.54px;top:180.96px" styleClass="cls_003"/>
+                    </span></div>
+                <div style="position:absolute;left:580.12px;top:180.96px" class="cls_002"><span class="cls_002">Contact Phone:</span><span class="cls_003">  
+                    <apex:outputText value="{! Opportunity.Contact__r.Phone}" style="position:absolute;left:665.54px;top:180.96px;" styleClass="cls_003"/>
+                    </span></div> 
+                
+                <div style="position:absolute;left:23.67px;top:210.87px" class="cls_002" ><span class="cls_002">Description:</span></div>
+                <div style="position:absolute;left:87.66px;top:210.87px" class="mybox" type="text"> 
+                    
+                    <apex:outputText value="{! Opportunity.Description}" style="position:absolute;left:90.66px;right:185.66px;top:210.87px;text-align: left;" styleClass="cls_003"/>
+                </div>
+                
+                <div style="position:absolute;left:625.99px;top:210.87px" class="cls_002"><span class="cls_002">Special Price
+                    <apex:outputText rendered="{!if(opportunity.Special_price__c,false,true)}"  style="position:absolute;left:600.99px;top:210.87px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:600.99px;top:210.87px"/>  </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.Special_price__c,true,false)}"  style="position:absolute;left:600.99px;top:210.87px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:600.99px;top:210.87px"/>  </apex:outputText>
+                    </span></div>
+                
+                <div style="position:absolute;left:625.99px;top:230.80px" class="cls_002"><span class="cls_002">Send Artwork for Approval
+                    <apex:outputText rendered="{!if(opportunity.Send_Artwork_for_Approval__c,false,true)}"  style="position:absolute;left:600.99px;top:230.80px" styleClass="cls_003">
+                        <img src="/img/checkbox_unchecked.gif" style="position:absolute;left:600.99px;top:230.80px"/>  </apex:outputText>
+                    
+                    <apex:outputText rendered="{!if(opportunity.Send_Artwork_for_Approval__c,true,false)}"  style="position:absolute;left:600.99px;top:230.80px" styleClass="cls_003">
+                        <img src="/img/checkbox_checked.gif" style="position:absolute;left:600.99px;top:230.80px"/>  </apex:outputText>
+                    </span></div>
+                
+                
+                
+                
+                
+                
+                <apex:pageBlock >   
+                    <table style="width:100%;position:absolute;top:280.70px;border: 1px solid black;" class="cls_003" >
+                        <tr>
+                            <th style="padding: 3px 5px 5px 5px;">#</th>
+                            <th style="padding: 3px 5px 5px 5px;width:5%;">By</th>
+                            <th style="padding: 3px 5px 5px 5px;width:20%;">Style</th>
+                            <th style="padding: 3px 5px 5px 5px;width:6%;">Size</th>
+                            <th style="padding: 3px 5px 5px 5px;width:19%;">Desc.</th>
+                            <th style="padding: 3px 5px 5px 5px;width:6%;">Qty</th>
+                            <th style="padding: 3px 5px 5px 5px;width:6%;">Unit</th>
+                            <th style="padding: 3px 5px 5px 5px;width:6%;">Total</th>
+                            <th style="padding: 3px 5px 5px 5px;">On Back Order</th>
+                            <th style="padding: 3px 5px 5px 5px; width:15%;" valign="top" rowspan="{!OLIlist2Size}">
+                                Layout<br/><br/>
+                                <span class="cls_003" style="text-align: left !important;"> {!Opportunity.Layout__c} </span>
+                            </th>
+                            
+                            
+                        </tr>
+                        <apex:variable value="{!1}" var="rowNum"/>
+                        <apex:repeat value="{!OLIlist2}" var="OLI">
+                            <tr >
+                                <td >{! rowNum}    
+                                </td>
+                                <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                                <td >{!OLI.By__c}</td><!--{!OLI.Quantity}-->
+                                <td> 
+                                    <table style="width:100%;">
+                                        <tr>
+                                        	<td style="border: 0px !important; text-align: left;">
+                                                Style: {!OLI.Style__c}
+                                            </td>
+                                            <td style="border: 0px !important; text-align: right;">
+                                                <apex:outputText rendered="{!if(OLI.V__c,false,true)}" value="V"   styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  />   </apex:outputText>  
+                                                
+                                                <apex:outputText rendered="{!if(OLI.V__c,true,false)}" value="V" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  />   </apex:outputText><br/>
+                                                
+                                                <apex:outputText rendered="{!if(OLI.H__c,false,true)}" value="H"   styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  />   </apex:outputText>
+                                                
+                                                <apex:outputText rendered="{!if(OLI.H__c,true,false)}" value="H" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  />   </apex:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="border: 0px !important;">
+                                                <apex:outputText rendered="{!if(OLI.Rpt__c,false,true)}" value="Rpt"   styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  />   </apex:outputText>  
+                                                
+                                                <apex:outputText rendered="{!if(OLI.Rpt__c,true,false)}" value="Rpt" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  />   </apex:outputText>  
+                                                <apex:outputText rendered="{!if(OLI.A_O__c,false,true)}" value="A/O"   styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  />   </apex:outputText>  
+                                                
+                                                <apex:outputText rendered="{!if(OLI.A_O__c,true,false)}" value="A/O" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  />   </apex:outputText>  
+                                                
+                                                <apex:outputText rendered="{!if(OLI.Vendor__c,false,true)}" styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  /> Vendor<u>{! OLI.Vendor_description__c}</u> </apex:outputText>  
+                                                
+                                                <apex:outputText rendered="{!if(OLI.Vendor__c,true,false)}" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  /> Vendor<u>{! OLI.Vendor_description__c}</u> </apex:outputText>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>{!OLI.Size__c}</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td style="border: 0px !important; text-align: left;">
+                                                {!OLI.Description}
+                                            </td>
+                                            <td style="border: 0px !important; text-align: right;">
+                                            	<apex:outputText rendered="{!if(OLI.S_P__c,false,true)}" value="S/P"   styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  />   </apex:outputText>  
+                                                <apex:outputText rendered="{!if(OLI.S_P__c,true,false)}" value="S/P" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  />   </apex:outputText> <br/>
+                                                <apex:outputText rendered="{!if(OLI.A_C__c,false,true)}" value="A/C"   styleClass="cls_003">
+                                                    <img src="/img/checkbox_unchecked.gif"  />   </apex:outputText>
+                                                <apex:outputText rendered="{!if(OLI.A_C__c,true,false)}" value="A/C" styleClass="cls_003">
+                                                    <img src="/img/checkbox_checked.gif"  />   </apex:outputText>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>{!OLI.Quantity}</td>
+                                <td>${!OLI.UnitPrice}</td>
+                                <td>${!OLI.TotalPrice}</td>
+                                <td>
+                                    <apex:outputText rendered="{!if(OLI.On_Back_Order__c,true,false)}">
+                                        <span class="cls_002">
+                                            <apex:outputText rendered="{!if(OLI.On_Back_Order__c,false,true)}" styleClass="cls_003">
+                                                <img src="/img/checkbox_unchecked.gif" /> </apex:outputText>
+                                            <apex:outputText rendered="{!if(OLI.On_Back_Order__c,true,false)}" styleClass="cls_003">
+                                                <img src="/img/checkbox_checked.gif"/> </apex:outputText>
+                                            On Back Order
+                                        </span>
+                                    	<br/>
+                                        <span class="cls_002">Projected Delivery Date:</span>
+                                        <span class="cls_003"> 
+                                            &nbsp;&nbsp;
+                                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" styleClass="cls_003"> 
+                                            <apex:param value="{!OLI.Projected_Delivery_Date__c}" /> </apex:outputText>
+                                        </span>
+
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{!if(OLI.On_Back_Order__c,false,true)}">
+                                        <span class="cls_002">Delivered Date:</span>
+                                        <span class="cls_003"> 
+                                            &nbsp;&nbsp;
+                                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" styleClass="cls_003"> 
+                                            <apex:param value="{!Opportunity.CloseDate}" /> </apex:outputText>
+                                        </span>
+                                    </apex:outputText>
+                                    
+                                </td>
+                                <!--<td>{!Opportunity.Layout__c}</td>-->
+                            </tr> 
+                        </apex:repeat>
+                        <tr>
+                            <td colspan="10">
+                                <div class="cls_002" style="text-align: left;padding: 0px 0px 0px 10px;">
+                                    <span class="cls_002">
+                                        <apex:outputText rendered="{!if(opportunity.Remake__c,false,true)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_unchecked.gif" /> </apex:outputText>
+                                        <apex:outputText rendered="{!if(opportunity.Remake__c,true,false)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_checked.gif"/> </apex:outputText>
+                                        Remake
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                
+                                    <span class="cls_002">
+                                        <apex:outputText rendered="{!if(opportunity.Add_On__c,false,true)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_unchecked.gif"/> </apex:outputText>
+                                        <apex:outputText rendered="{!if(opportunity.Add_On__c,true,false)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_checked.gif"/> </apex:outputText>
+                                        AddOn
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="cls_002">
+                                        <apex:outputText rendered="{!if(opportunity.Artwork_Only__c,false,true)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_unchecked.gif"/> </apex:outputText>
+                                        <apex:outputText rendered="{!if(opportunity.Artwork_Only__c,true,false)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_checked.gif"/>  </apex:outputText>
+                                        ArtworkOnly
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="cls_002">
+                                        <apex:outputText rendered="{!if(opportunity.Repeat__c,false,true)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_unchecked.gif"/> </apex:outputText>
+                                        <apex:outputText rendered="{!if(opportunity.Repeat__c,true,false)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_checked.gif"/> </apex:outputText>
+                                        Repeat
+                                    </span>
+                                </div>
+                                <div class="cls_002" style="text-align: left;padding: 0px 0px 0px 10px;">
+                                    &nbsp;&nbsp;<span class="cls_002">Dt Shipped:</span><span class="cls_003"> 
+                                    &nbsp;&nbsp;<apex:outputText value="{0,date,MM'/'dd'/'yyyy}" styleClass="cls_003"> 
+                                        <apex:param value="{!Opportunity.Date_Shipped__c}" /> </apex:outputText>
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="cls_002">
+                                        <apex:outputText rendered="{!if(opportunity.No_Cost__c,false,true)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_unchecked.gif"/> </apex:outputText>
+                                        
+                                        <apex:outputText rendered="{!if(opportunity.No_Cost__c,true,false)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_checked.gif"/> </apex:outputText>
+                                        NoCost
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="cls_002">
+                                        <apex:outputText rendered="{!if(opportunity.Bill__c,false,true)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_unchecked.gif"/>  </apex:outputText>
+                                        
+                                        <apex:outputText rendered="{!if(opportunity.Bill__c,true,false)}" styleClass="cls_003">
+                                            <img src="/img/checkbox_checked.gif"/> </apex:outputText>
+                                        Bill
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="cls_002">Invoice #:</span><span class="cls_003"> 
+                                    <apex:outputText value="{! Opportunity.Invoice__c}" styleClass="cls_003"/>
+                                    </span>
+                                </div><br/>
+                                <div class="cls_002" style="text-align: right;padding: 0px 20px 0px 0px;">
+                                    <span class="cls_003">Designer &nbsp;&nbsp;<u> {! Opportunity.Designer__c } </u></span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                	<span class="cls_003">Date Printed &nbsp;&nbsp;<u> {! DateNow } </u></span>
+                                </div><br/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </apex:pageBlock>
+<!-- CODIGO ELIMINADO-->
+                
+            </apex:panelGrid>
+            
+            
+        </center>
+    </body>
+</apex:page>

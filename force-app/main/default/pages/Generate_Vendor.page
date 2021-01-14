@@ -1,0 +1,109 @@
+<apex:page controller="generateVendorController">
+
+    <head>
+        <style type="text/css">
+            .border{
+                border: solid 1px black;
+            }
+            .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            top:100px;
+            
+            }
+            .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            }
+        </style>
+    </head>
+
+    <body>
+        <apex:form > 
+            <center>
+                <apex:outputPanel id="myPanel">
+                    <table style="border-collapse: collapse" >
+                        <thead>
+                            <tr> 
+                                <th class="border" width="25%">Vendor</th>
+                                <th class="border" width="25%">Style</th>
+                                <th class="border" width="25%">Quantity</th>
+                                <th class="border" width="25%">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!myList}" var="myItem">
+                                <tr>
+                                    <td class="border" width="25%">
+                                        <apex:inputField value="{!myItem.po.Vendor__c}" styleClass="form-control form-control-sm" />
+                                    </td>
+                                    <td class="border" width="25%">
+                                        <apex:inputText value="{!myItem.style.CAG_SKU__c}" styleClass="form-control form-control-sm"
+                                            onblur="searchQuantity(this);" html-key-val="{!myItem.key}" />
+                                    </td>
+                                    <td class="border" width="25%">{!myItem.style.Quantity__c}</td>
+                                    <td class="border" width="25%">
+                                        <apex:inputText value="{!myItem.style.Description__c}" styleClass="form-control form-control-sm"  />
+                                        <!--html-key-val="{!payment.key}"-->
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                    <!--<apex:commandButton value="Add" action="{!addItem}" rerender="myPanel"/>-->
+                    <apex:commandButton value="Add" action="{!showPopup}" rerender="tstpopup"/>
+                </apex:outputPanel>
+                <apex:commandButton value="Save" action="{!save}"/>
+            </center>
+            
+            <!--Modal Search Contact-->
+            <apex:outputPanel id="tstpopup"> 
+                <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayContactPopUp}"/>
+                <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayContactPopUp}"> 
+                    <apex:inputText value="{!searchKey}" label="Input"/>
+                    <apex:commandButton value="Search records" action="{!search}"/>
+                    <apex:commandButton value="Clear records" action="{!clear}"/>
+                    <apex:pageBlock title="Search Result">
+                        <apex:pageBlockTable value="{!lstAllContact}" var="contact">
+                            <apex:column value="{!contact.name}"/>
+                            <apex:column value="{!contact.id}"/>
+                            <apex:column >
+                                <apex:commandButton value="Select" action="{!onRowClick}" reRender="myPanel,tstpopupg">
+                                    <apex:param name="contactId" value="{!contact.id}" assignTo="{!contactId}"/>
+                                </apex:commandButton>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlock> <br/>
+                    <br/>
+                    <apex:commandButton value="Close" action="{!closePopup}" rerender="tstpopup"/> 
+                </apex:outputPanel> 
+            </apex:outputPanel> 
+            
+
+            <!-- Action Functions-->
+            <apex:actionFunction action="{!searchQuantity}" name="searchQuantityJs" reRender="myPanel">
+                <apex:param assignTo="{!actualKeyValue}" value="" name="actualKeyValue" />
+            </apex:actionFunction>
+        </apex:form> 
+    </body>
+
+    <script>
+        function searchQuantity(val){
+            console.log(val.getAttribute('key-val'));
+            searchQuantityJs(val.getAttribute('key-val'));
+        }
+    </script>
+
+</apex:page>

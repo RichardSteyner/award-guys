@@ -1,0 +1,63 @@
+<apex:page controller="GenerateVendorController2">
+
+    <head>
+        <style type="text/css">
+            .border{
+            	border: solid 1px black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <apex:form > 
+            <center>
+                <apex:outputPanel id="myPanel">
+                    <table style="border-collapse: collapse" >
+                        <thead>
+                            <tr> 
+                                <th class="border" width="25%">Vendor</th>
+                                <th class="border" width="25%">Style</th>
+                                <th class="border" width="25%">Quantity</th>
+                                <th class="border" width="25%">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!myList}" var="myItem">
+                                <tr>
+                                    <td class="border" width="25%">
+                                        <apex:inputField value="{!myItem.po.Vendor__c}" styleClass="form-control form-control-sm" />
+                                    </td>
+                                    <td class="border" width="25%">
+                                        <apex:inputText value="{!myItem.style.CAG_SKU__c}" styleClass="form-control form-control-sm"
+                                            onblur="searchQuantity(this);" html-key-val="{!myItem.key}" />
+                                    </td>
+                                    <td class="border" width="25%">{!myItem.style.Quantity__c}</td>
+                                    <td class="border" width="25%">
+                                        <apex:inputText value="{!myItem.style.Description__c}" styleClass="form-control form-control-sm"  />
+                                        <!--html-key-val="{!payment.key}"-->
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                    <apex:commandButton value="Add" action="{!addItem}" rerender="myPanel"/>
+                </apex:outputPanel>
+
+                <apex:commandButton value="Save" action="{!save}"/>
+            </center>
+
+            <!-- Action Functions-->
+            <apex:actionFunction action="{!searchQuantity}" name="searchQuantityJs" reRender="myPanel">
+                <apex:param assignTo="{!actualKeyValue}" value="" name="actualKeyValue" />
+            </apex:actionFunction>
+        </apex:form> 
+    </body>
+
+    <script>
+        function searchQuantity(val){
+            console.log(val.getAttribute('key-val'));
+            searchQuantityJs(val.getAttribute('key-val'));
+        }
+    </script>
+
+</apex:page>
